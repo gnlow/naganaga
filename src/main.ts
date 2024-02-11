@@ -23,7 +23,14 @@ const pad = el("div", {
         font(64)
     `,
     contentEditable: "true",
-    children: ["Hi"],
+    children: [
+        "Hello, ",
+        el("span", {
+            class: "c(orange)",
+            children: "World",
+        }),
+        "!",
+    ],
 })
 
 const observer = new MutationObserver((mutations) => {
