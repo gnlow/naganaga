@@ -26,4 +26,17 @@ const pad = el("div", {
     children: ["Hi"],
 })
 
+const observer = new MutationObserver((mutations) => {
+    mutations.forEach(({ type, target }) => {
+        if (type == "characterData") {
+            console.log(target.textContent)
+        }
+    })
+})
+
+observer.observe(pad, {
+    subtree: true,
+    characterData: true,
+})
+
 document.body.append(pad)
