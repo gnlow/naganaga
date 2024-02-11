@@ -1,4 +1,3 @@
-import { parse } from "https://deno.land/std@0.215.0/csv/mod.ts"
+import { googleSheet } from "./src/load/googleSheet.ts"
 
-const r = await fetch("https://docs.google.com/spreadsheets/u/0/d/1KuRQFwPnn4_jBlTkUHVeWD-6DRmtDohEBDsaP7XWxNY/export?format=csv").then(x => x.text())
-console.log(parse(r))
+console.log(await googleSheet("1KuRQFwPnn4_jBlTkUHVeWD-6DRmtDohEBDsaP7XWxNY"))
