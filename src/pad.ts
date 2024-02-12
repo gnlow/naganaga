@@ -1,9 +1,5 @@
 import { el } from "./el.ts"
-
-import { parse } from "https://tsm.deno.dev/https://deno.land/std@0.215.0/csv/mod.ts"
-
-const data = parse(await fetch("https://gsheet.deno.dev/1KuRQFwPnn4_jBlTkUHVeWD-6DRmtDohEBDsaP7XWxNY").then(x => x.text()))
-console.log(data)
+import { search } from "./search.ts"
 
 export const pad = el("div", {
     class: `
@@ -52,15 +48,11 @@ document.addEventListener("selectionchange", () => {
     console.log(getSelection())
 })
 
-const normalize = (str: string) => str.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase()
-
 const observer = new MutationObserver((mutations) => {
     mutations.forEach(({ type }) => {
         if (type == "characterData") {
             console.log(pad.textContent)
-            console.log(data.filter(([i, word]) =>
-                normalize(word).includes(normalize(pad.textContent!))
-            ))
+            console.log(search(pad.textContent!))
         }
     })
 })
