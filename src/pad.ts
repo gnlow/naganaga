@@ -1,5 +1,4 @@
 import { el } from "./el.ts"
-import { search } from "./search.ts"
 
 export const pad = el("div", {
     class: `
@@ -19,16 +18,17 @@ export const pad = el("div", {
     ],
 })
 
-const observer = new MutationObserver((mutations) => {
-    mutations.forEach(({ type }) => {
-        if (type == "characterData") {
-            console.log(pad.textContent)
-            console.log(search(pad.textContent!))
-        }
+export const onChange = (f: (str: string) => void) => {
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach(({ type }) => {
+            if (type == "characterData") {
+                f(pad.textContent!)
+            }
+        })
     })
-})
-
-observer.observe(pad, {
-    subtree: true,
-    characterData: true,
-})
+    
+    observer.observe(pad, {
+        subtree: true,
+        characterData: true,
+    })
+}
