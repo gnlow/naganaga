@@ -52,7 +52,7 @@ document.addEventListener("selectionchange", () => {
     console.log(getSelection())
 })
 
-const normalize = (str: string) => str.normalize("NFD").replace(/\p{Diacritic}/gu, "")
+const normalize = (str: string) => str.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase()
 
 const observer = new MutationObserver((mutations) => {
     mutations.forEach(({ type }) => {
