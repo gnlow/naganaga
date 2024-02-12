@@ -66,7 +66,6 @@ const observer = new MutationObserver((mutations) => {
     mutations.forEach(({ type }) => {
         if (type == "characterData") {
             console.log(pad.textContent)
-            console.log(getSelection())
         }
     })
 })
@@ -76,4 +75,4 @@ observer.observe(pad, {
     characterData: true,
 })
 
-document.body.append(pad)
+document.querySelector("#pad")!.append(pad)
