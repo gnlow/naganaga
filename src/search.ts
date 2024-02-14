@@ -23,10 +23,30 @@ const sortList =
             : 1
     )
 
-export const search = (str: string) =>
-    zasok.words.filter(({ word }) =>
+const filterLimited =
+<T>
+(
+    limit: number,
+    cond: (val: T) => boolean,
+) =>
+(list: T[]) => {
+    const result: T[] = []
+    list.find(val => {
+        if (cond(val)) {
+            result.push(val)
+        }
+        if (result.length == limit) {
+            return true
+        }
+    })
+    return result
+}
+
+export const search = (str: string) => {
+    return filterLimited<Word>(20, ({ word }) =>
         normalize(word).includes(normalize(str))
-    )
+    )(zasok.words)
     .sort(
         sortList(str)
     )
+}

@@ -5,8 +5,7 @@ import { el } from "./el.ts"
 
 const $search = document.querySelector("#search")!
 
-document.querySelector("#pad")!.append(pad)
-onChange(str => {
+const update = (str: string) => {
     console.log(str)
     console.log(search(str))
     
@@ -23,8 +22,22 @@ onChange(str => {
                 ]
             }))
     )
-})
+}
+
+document.querySelector("#pad")!.append(pad)
+//onChange(update)
 
 document.addEventListener("selectionchange", () => {
     console.log(getSelection())
+    const [selectionFrom, selectionTo] = getSelection()
+    const str = " " + pad.textContent! + " "
+
+    const wordFrom = str.slice(0, selectionFrom).lastIndexOf(" ") + 1
+    const wordTo = str.slice(selectionTo).indexOf(" ") + selectionTo
+
+    console.log(str.slice(0, selectionFrom), "|", str.slice(selectionTo))
+
+    console.log([str.slice(wordFrom, wordTo)])
+
+    update(str.slice(wordFrom, wordTo))
 })
