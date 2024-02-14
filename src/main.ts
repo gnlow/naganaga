@@ -1,9 +1,40 @@
-import { pad, onChange } from "./pad.ts"
+import { pad } from "./pad.ts"
 import { search } from "./search.ts"
 import { getSelection } from "./getSelection.ts"
 import { el } from "./el.ts"
+import { Word } from "./Lang.ts"
 
 const $search = document.querySelector("#search")!
+
+const box = (cl: string) => (
+    class_: string,
+    children: (string | HTMLElement)[],
+) => el("div", {
+    class: cl + class_,
+    children,
+})
+const v = box("vbox ")
+const h = box("hbox ")
+const div = box("")
+
+const word = ({ index, word, meaning }: Word) =>
+    v("m(0/0/10)", [
+        h("hbox(bottom) font(24)", [
+            div("", [word]),
+            div(`
+                font(12)
+                p(4)
+                c(#333)
+            `, [String(index)]),
+        ]),
+        h("font(16)", [
+            div("", meaning.filter(x => !!x).map(mean => [
+                mean,
+                el("br"),
+            ]).flat()),
+        ])
+    ])
+
 
 const update = (str: string) => {
     console.log(str)
@@ -11,16 +42,7 @@ const update = (str: string) => {
     
     $search.replaceChildren(
         ...search(str)
-            .map(x => [
-                x.index,
-                x.word,
-                ...x.meaning,
-            ].join(" "))
-            .map(x => el("div", {
-                children: [
-                    x
-                ]
-            }))
+            .map(word)
     )
 }
 
