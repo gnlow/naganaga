@@ -10,10 +10,12 @@ export const search = (str: string) =>
         normalize(word).includes(normalize(str))
     )
     .sort(
-        (a, b) => normalize(a[1])
-            .startsWith(normalize(str))
+        (a, b) => 
+            normalize(a[1]).startsWith(normalize(str))
             ? -1
-            : a[0] < b[0]
-                ? -1
-                : 1
+            : normalize(b[1]).startsWith(normalize(str))
+                ? 1
+                : a[0] < b[0]
+                    ? -1
+                    : 1
     )
