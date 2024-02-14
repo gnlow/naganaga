@@ -9,3 +9,11 @@ export const search = (str: string) =>
     data.filter(([i, word]) =>
         normalize(word).includes(normalize(str))
     )
+    .sort(
+        (a, b) => normalize(a[1])
+            .startsWith(normalize(str))
+            ? -1
+            : a[0] < b[0]
+                ? -1
+                : 1
+    )
