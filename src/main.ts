@@ -20,7 +20,7 @@ const div = box("")
 const word = ({ index, word, meaning }: Word) =>
     v("m(0/0/10)", [
         h("hbox(bottom) font(24)", [
-            div("", [word]),
+            div("500", [word]),
             div(`
                 font(12)
                 p(4)
