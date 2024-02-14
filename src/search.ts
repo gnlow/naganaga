@@ -1,5 +1,5 @@
 import { Word } from "./Lang.ts"
-import { loca } from "./lang/index.ts"
+import { zasok } from "./lang/index.ts"
 
 export const normalize = (str: string) => str.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase()
 
@@ -24,7 +24,7 @@ const sortList =
     )
 
 export const search = (str: string) =>
-    loca.words.filter(({ word }) =>
+    zasok.words.filter(({ word }) =>
         normalize(word).includes(normalize(str))
     )
     .sort(
