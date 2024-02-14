@@ -1,6 +1,16 @@
 import { parse } from "https://tsm.deno.dev/https://deno.land/std@0.215.0/csv/mod.ts"
 
-const data = parse(await fetch("https://gsheet.deno.dev/1KuRQFwPnn4_jBlTkUHVeWD-6DRmtDohEBDsaP7XWxNY").then(x => x.text()))
+type DictRow = [
+    index: string,
+    word: string,
+    n: string,
+    adj: string,
+    v: string,
+    etc: string,
+    origin: string,
+]
+
+const data = parse(await fetch("https://gsheet.deno.dev/1KuRQFwPnn4_jBlTkUHVeWD-6DRmtDohEBDsaP7XWxNY").then(x => x.text())) as DictRow[]
 console.log(data)
 
 export const normalize = (str: string) => str.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase()
