@@ -12,7 +12,11 @@ onChange(str => {
     
     $search.replaceChildren(
         ...search(str)
-            .map(x => x.join(" "))
+            .map(x => [
+                x.index,
+                x.word,
+                ...x.meaning,
+            ].join(" "))
             .map(x => el("div", {
                 children: [
                     x

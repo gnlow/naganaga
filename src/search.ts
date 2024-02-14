@@ -1,17 +1,5 @@
-import { parse } from "https://tsm.deno.dev/https://deno.land/std@0.215.0/csv/mod.ts"
-
-type DictRow = [
-    index: string,
-    word: string,
-    n: string,
-    adj: string,
-    v: string,
-    etc: string,
-    origin: string,
-]
-
-const data = parse(await fetch("https://gsheet.deno.dev/1KuRQFwPnn4_jBlTkUHVeWD-6DRmtDohEBDsaP7XWxNY").then(x => x.text())) as DictRow[]
-console.log(data)
+import { Word } from "./Lang.ts"
+import { loca } from "./lang/index.ts"
 
 export const normalize = (str: string) => str.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase()
 
@@ -22,21 +10,21 @@ const sort =
 
 const sortList = 
 (str: string) =>
-    sort<DictRow>(
+    sort<Word>(
         (a, b) => 
-            normalize(a[1]).startsWith(normalize(str))
+            normalize(a.word).startsWith(normalize(str))
                 ? -1
-                : normalize(b[1]).startsWith(normalize(str))
+                : normalize(b.word).startsWith(normalize(str))
                     ? 1
                     : 0,
         (a, b) =>
-        a[0] < b[0]
+        a.index < b.index
             ? -1
             : 1
     )
 
 export const search = (str: string) =>
-    data.filter(([i, word]) =>
+    loca.words.filter(({ word }) =>
         normalize(word).includes(normalize(str))
     )
     .sort(
