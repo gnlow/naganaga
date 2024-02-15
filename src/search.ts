@@ -52,11 +52,22 @@ const filterLimited =
     return result
 }
 
+const isHangul = (str: string) => /\p{sc=Hangul}+/v.test(str)
+
+const match =
+(str: string) =>
+({ word, meaning }: Word) => {
+    const where = normalize(
+        isHangul(str)
+            ? meaning.join("\n")
+            : word
+    )
+    const what = normalize(str)
+    return where.includes(what)
+}
+
 export const search = (str: string) => {
-    return filterLimited<Word>(20, ({ word, meaning }) =>
-        normalize(word).includes(normalize(str))
-        || !!meaning.find(mean => normalize(mean).includes(normalize(str)))
-    )(zasok.words)
+    return filterLimited(20, match(str))(zasok.words)
     .sort(
         sortList(str)
     )
