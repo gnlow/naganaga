@@ -34,5 +34,5 @@ export const getSelectedWord = (fullStr: string) => {
     console.log(str.slice(0, selectionFrom), "|", str.slice(selectionTo))
 
     console.log([str.slice(wordFrom, wordTo)])
-    return fullStr.slice(wordFrom, wordTo)
+    return fullStr.slice(wordFrom, wordTo).trim()
 }
