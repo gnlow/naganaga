@@ -1,3 +1,5 @@
+import { pad } from "./pad.ts"
+
 const getPos = (target: Node | null): number => {
     if (!target) return 0
     if (target instanceof HTMLElement)
@@ -18,6 +20,9 @@ export const getSelection = () => {
         focusNode,
         focusOffset,
     } = document.getSelection()!
+    if (anchorNode!.parentElement!.closest("div") != pad) return false
+    if (focusNode!.parentElement!.closest("div") != pad) return false
+
     return [
         getPos(anchorNode) + anchorOffset,
         getPos(focusNode) + focusOffset,
@@ -25,7 +30,11 @@ export const getSelection = () => {
 }
 
 export const getSelectedWord = (fullStr: string) => {
-    const [selectionFrom, selectionTo] = getSelection()
+    const selection = getSelection()
+    console.log(selection)
+    if (!selection) return ""
+
+    const [selectionFrom, selectionTo] = selection
     const str = " " + fullStr + " "
 
     const wordFrom = str.slice(0, selectionFrom).lastIndexOf(" ")

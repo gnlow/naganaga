@@ -40,6 +40,7 @@ let cacheResult: Word[] = []
 
 const update = () => {
     const str = getSelectedWord(pad.textContent!)
+    if (!str) return
 
     console.log(str + "\n" + normalize(str))
 
