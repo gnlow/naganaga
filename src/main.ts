@@ -1,4 +1,4 @@
-import { pad } from "./pad.ts"
+import { pad, onChange } from "./pad.ts"
 import { search } from "./search.ts"
 import { getSelection } from "./getSelection.ts"
 import { el } from "./el.ts"
@@ -35,19 +35,27 @@ const word = ({ index, word, meaning }: Word) =>
         ])
     ])
 
+let cacheStr: string = ""
+let cacheResult: Word[] = []
 
 const update = (str: string) => {
     console.log(str)
-    console.log(search(str))
+
+    const result =
+        str == cacheStr
+            ? cacheResult
+            : search(str)
+
+    console.log(result)
     
     $search.replaceChildren(
-        ...search(str)
+        ...result
             .map(word)
     )
 }
 
 document.querySelector("#pad")!.append(pad)
-//onChange(update)
+onChange(update)
 
 document.addEventListener("selectionchange", () => {
     console.log(getSelection())

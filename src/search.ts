@@ -1,7 +1,11 @@
 import { Word } from "./Lang.ts"
 import { zasok } from "./lang/index.ts"
 
-export const normalize = (str: string) => str.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase()
+export const normalize =
+(str: string) => str
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase()
 
 const sort =
 <T>(...sorters: ((a: T, b: T) => -1 | 0 | 1)[]) =>
@@ -18,9 +22,15 @@ const sortList =
                     ? 1
                     : 0,
         (a, b) =>
-        a.index < b.index
-            ? -1
-            : 1
+            normalize(a.word).includes(normalize(str))
+                ? -1
+                : normalize(b.word).includes(normalize(str))
+                    ? 1
+                    : 0,
+        (a, b) =>
+            a.index < b.index
+                ? -1
+                : 1
     )
 
 const filterLimited =
@@ -43,8 +53,9 @@ const filterLimited =
 }
 
 export const search = (str: string) => {
-    return filterLimited<Word>(20, ({ word }) =>
+    return filterLimited<Word>(20, ({ word, meaning }) =>
         normalize(word).includes(normalize(str))
+        || !!meaning.find(mean => normalize(mean).includes(normalize(str)))
     )(zasok.words)
     .sort(
         sortList(str)
