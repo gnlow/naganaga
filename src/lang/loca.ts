@@ -24,6 +24,7 @@ export const loca: Lang = {
                 v,
                 etc,
             ],
+            freq: 0,
         })
     )
 }

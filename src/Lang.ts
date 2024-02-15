@@ -3,6 +3,7 @@ export interface Word {
     /** Latin */
     word: string
     meaning: string[]
+    freq: number
 }
 
 export interface Lang {

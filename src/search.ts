@@ -1,6 +1,8 @@
 import { Word } from "./Lang.ts"
 import { zasok } from "./lang/index.ts"
 
+const dict = zasok.words.sort((a, b) => b.freq - a.freq)
+
 const wansung = {
     chosung: "ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ",
     jungsung: "ㅏ,ㅐ,ㅑ,ㅒ,ㅓ,ㅔ,ㅕ,ㅖ,ㅗ,ㅗㅏ,ㅗㅐ,ㅗㅣ,ㅛ,ㅜ,ㅜㅓ,ㅜㅔ,ㅜㅣ,ㅡ,ㅡㅣ,ㅣ".split(","),
@@ -104,7 +106,7 @@ const match =
 }
 
 export const search = (str: string) => {
-    return filterLimited(20, match(str))(zasok.words)
+    return filterLimited(20, match(str))(dict)
     .sort(
         sortList(str)
     )
