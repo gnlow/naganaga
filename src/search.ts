@@ -1,11 +1,41 @@
 import { Word } from "./Lang.ts"
 import { zasok } from "./lang/index.ts"
 
+const wansung = {
+    chosung: "ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ",
+    jungsung: "ㅏ,ㅐ,ㅑ,ㅒ,ㅓ,ㅔ,ㅕ,ㅖ,ㅗ,ㅗㅏ,ㅗㅐ,ㅗㅣ,ㅛ,ㅜ,ㅜㅓ,ㅜㅔ,ㅜㅣ,ㅡ,ㅡㅣ,ㅣ".split(","),
+    jongsung: "ㄱ,ㄲ,ㄱㅅ,ㄴ,ㄴㅈ,ㄴㅎ,ㄷ,ㄹ,ㄹㄱ,ㄹㅁ,ㄹㅂ,ㄹㅅ,ㄹㅌ,ㄹㅍ,ㄹㅎ,ㅁ,ㅂ,ㅂㅅ,ㅅ,ㅆ,ㅇ,ㅈ,ㅊ,ㅋ,ㅌ,ㅍ,ㅎ".split(",")
+}
+
+const charCodeDiff =
+(a: string, b: string) =>
+    a.charCodeAt(0) - b.charCodeAt(0)
+
 export const normalize =
 (str: string) => str
     .normalize("NFD")
     .replace(/\p{Diacritic}/gu, "")
     .toLowerCase()
+
+    /* 조합형을 완성형으로 */
+    .replaceAll(
+        /[ᄀ-ᄒ]/g,
+        x => wansung.chosung[
+            charCodeDiff(x, "ᄀ")
+        ],
+    )
+    .replaceAll(
+        /[ᅡ-ᅵ]/g,
+        x => wansung.jungsung[
+            charCodeDiff(x, "ᅡ")
+        ],
+    )
+    .replaceAll(
+        /[ᆨ-ᇂ]/g,
+        x => wansung.jongsung[
+            charCodeDiff(x, "ᆨ")
+        ],
+    )
 
 const sort =
 <T>(...sorters: ((a: T, b: T) => -1 | 0 | 1)[]) =>

@@ -1,5 +1,5 @@
 import { pad, onChange } from "./pad.ts"
-import { search } from "./search.ts"
+import { search, normalize } from "./search.ts"
 import { getSelection } from "./getSelection.ts"
 import { el } from "./el.ts"
 import { Word } from "./Lang.ts"
@@ -35,16 +35,19 @@ const word = ({ index, word, meaning }: Word) =>
         ])
     ])
 
-let cacheStr: string = ""
+let cacheStr = ""
 let cacheResult: Word[] = []
 
 const update = (str: string) => {
-    console.log(str)
+    console.log(normalize(str))
 
     const result =
         str == cacheStr
             ? cacheResult
-            : search(str)
+            : (
+                cacheStr = str,
+                cacheResult = search(str)
+            )
 
     console.log(result)
     
