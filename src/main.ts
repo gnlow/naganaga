@@ -57,6 +57,7 @@ const update = () => {
         ...result
             .map(word)
     )
+    $search.scrollTop = 0
 }
 
 document.querySelector("#pad")!.append(pad)
