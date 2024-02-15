@@ -23,3 +23,16 @@ export const getSelection = () => {
         getPos(focusNode) + focusOffset,
     ]
 }
+
+export const getSelectedWord = (fullStr: string) => {
+    const [selectionFrom, selectionTo] = getSelection()
+    const str = " " + fullStr + " "
+
+    const wordFrom = str.slice(0, selectionFrom).lastIndexOf(" ")
+    const wordTo = str.slice(selectionTo).indexOf(" ") + selectionTo
+
+    console.log(str.slice(0, selectionFrom), "|", str.slice(selectionTo))
+
+    console.log([str.slice(wordFrom, wordTo)])
+    return fullStr.slice(wordFrom, wordTo)
+}

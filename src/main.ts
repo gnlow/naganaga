@@ -1,6 +1,6 @@
 import { pad, onChange } from "./pad.ts"
 import { search, normalize } from "./search.ts"
-import { getSelection } from "./getSelection.ts"
+import { getSelectedWord } from "./getSelection.ts"
 import { el } from "./el.ts"
 import { Word } from "./Lang.ts"
 
@@ -38,8 +38,10 @@ const word = ({ index, word, meaning }: Word) =>
 let cacheStr = ""
 let cacheResult: Word[] = []
 
-const update = (str: string) => {
-    console.log(normalize(str))
+const update = () => {
+    const str = getSelectedWord(pad.textContent!)
+
+    console.log(str + "\n" + normalize(str))
 
     const result =
         str == cacheStr
@@ -60,17 +62,4 @@ const update = (str: string) => {
 document.querySelector("#pad")!.append(pad)
 onChange(update)
 
-document.addEventListener("selectionchange", () => {
-    console.log(getSelection())
-    const [selectionFrom, selectionTo] = getSelection()
-    const str = " " + pad.textContent! + " "
-
-    const wordFrom = str.slice(0, selectionFrom).lastIndexOf(" ") + 1
-    const wordTo = str.slice(selectionTo).indexOf(" ") + selectionTo
-
-    console.log(str.slice(0, selectionFrom), "|", str.slice(selectionTo))
-
-    console.log([str.slice(wordFrom, wordTo)])
-
-    update(str.slice(wordFrom, wordTo))
-})
+document.addEventListener("selectionchange", update)
