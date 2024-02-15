@@ -59,9 +59,9 @@ const sortList =
                     ? 1
                     : 0,
         (a, b) =>
-            startsWith(a.word, str)
+            a.meaning.find(x => startsWith(x, str))
                 ? -1
-                : startsWith(b.word, str)
+                : b.meaning.find(x => startsWith(x, str))
                     ? 1
                     : 0,
         (a, b) =>
