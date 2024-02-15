@@ -42,19 +42,26 @@ const sort =
 (a: T, b: T) =>
     sorters.find(sorter => sorter(a, b))?.(a, b) || 0
 
+const nLift =
+<T>(f: (a: string, b: string) => T) =>
+(a: string, b: string) =>
+f(normalize(a), normalize(b))
+
+const startsWith = nLift((a, b) => a.startsWith(b))
+
 const sortList = 
 (str: string) =>
     sort<Word>(
         (a, b) => 
-            normalize(a.word).startsWith(normalize(str))
+            startsWith(a.word, str)
                 ? -1
-                : normalize(b.word).startsWith(normalize(str))
+                : startsWith(b.word, str)
                     ? 1
                     : 0,
         (a, b) =>
-            normalize(a.word).includes(normalize(str))
+            startsWith(a.word, str)
                 ? -1
-                : normalize(b.word).includes(normalize(str))
+                : startsWith(b.word, str)
                     ? 1
                     : 0,
         (a, b) =>
