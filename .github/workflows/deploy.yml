@@ -24,7 +24,7 @@ jobs:
           deno-version: v1.x
 
       - name: Build step
-        run: "deno run -A https://denopkg.com/gnlow/tserve@636cc3b/build.ts"
+        run: "deno run -A https://denopkg.com/gnlow/tserve@57cc77e/build.ts"
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
