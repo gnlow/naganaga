@@ -40,7 +40,7 @@ export const normalize =
     )
 
 const sort =
-<T>(...sorters: ((a: T, b: T) => -1 | 0 | 1)[]) =>
+<T>(...sorters: ((a: T, b: T) => number)[]) =>
 (a: T, b: T) =>
     sorters.find(sorter => sorter(a, b))?.(a, b) || 0
 
@@ -51,25 +51,22 @@ f(normalize(a), normalize(b))
 
 const startsWith = nLift((a, b) => a.startsWith(b))
 
+const ascend =
+<T>(f: (a: T) => number | boolean) =>
+(a: T, b: T) => Number(f(a)) - Number(f(b))
+
+const descend =
+<T>(f: (a: T) => number | boolean) =>
+(a: T, b: T) => -ascend(f)(a, b)
+
 const sortList = 
 (str: string) =>
     sort<Word>(
-        (a, b) => 
-            startsWith(a.word, str)
-                ? -1
-                : startsWith(b.word, str)
-                    ? 1
-                    : 0,
-        (a, b) =>
-            a.meaning.find(x => startsWith(x, str))
-                ? -1
-                : b.meaning.find(x => startsWith(x, str))
-                    ? 1
-                    : 0,
-        (a, b) =>
-            a.index < b.index
-                ? -1
-                : 1
+        descend(x => startsWith(x.word, str)),
+        descend(x => !!x.meaning.find(y => startsWith(y, str))),
+        descend(x => x.freq),
+        ascend(x => x.word.length),
+        ascend(x => x.index),
     )
 
 const filterLimited =
