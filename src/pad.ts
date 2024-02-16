@@ -5,7 +5,7 @@ export const pad = el("div", {
         w(100%)
         h(100%)
         p(1rem)
-        font(64)
+        font(64)       
     `,
     contentEditable: "true",
     children: [

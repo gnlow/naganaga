@@ -8,4 +8,9 @@ export interface Word {
 
 export interface Lang {
     words: Word[]
+
+    color?: {
+        light: string
+        dark: string
+    }
 }

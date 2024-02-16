@@ -4,12 +4,38 @@
 
     </head>
     <body>
-        <div class="hbox w(100%) h(100%)">
-            <div id="pad" class="w(50%) h(100%)">
+        <div
+            class="hbox w(100%) h(100%)"
+            style="
+                transition:
+                    1s
+                    cubic-bezier(0,0,.1,1);
+                transition-property:
+                    background-color,
+                    color;
+            "
+        >
+            <div id="pad" class="
+                w(50%)
+                h(100%)
+
+                bg(--theme-0)
+                c(--theme-100)
+                transition(inherit)
+            ">
                 
             </div>
-            <div id="search" class="w(50%) h(100%) bg(#fafaff) p(1rem) overflow(scroll)">
-                <div class="vbox">
+            <div id="search" class="
+                w(50%)
+                h(100%)
+                p(0.5rem/0)
+                overflow(scroll)
+
+                bg(--theme-10)
+                c(--theme-100)
+                transition(inherit)
+            ">
+                <div class="vbox p(0.5rem/1rem)">
                     <div class="hbox(bottom) font(24)">
                         <div class="500">
                             taiquorsinatio
@@ -17,7 +43,6 @@
                         <div class="
                             font(12)
                             p(4)
-                            c(#333)
                         ">
                             2318
                         </div>

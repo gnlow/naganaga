@@ -3,6 +3,7 @@ import { search, normalize } from "./search.ts"
 import { getSelectedWord } from "./getSelection.ts"
 import { el } from "./el.ts"
 import { Word } from "./Lang.ts"
+import { style } from "./style.ts"
 
 const $search = document.querySelector("#search")!
 
@@ -18,13 +19,12 @@ const h = box("hbox ")
 const div = box("")
 
 const word = ({ index, word, meaning }: Word) =>
-    v("m(0/0/10)", [
+    v("p(0.5rem/1rem)", [
         h("hbox(bottom) font(24)", [
             div("500", [word]),
             div(`
                 font(12)
                 p(4)
-                c(#333)
             `, [String(index)]),
         ]),
         h("font(16)", [
@@ -65,3 +65,17 @@ document.querySelector("#pad")!.append(pad)
 onChange(update)
 
 document.addEventListener("selectionchange", update)
+
+import { zasok } from "./lang/zasok.ts"
+
+const light = style.light = zasok.color!.light
+const dark = style.dark =  zasok.color!.dark
+
+Array(11).fill(0).forEach((_, n) => {
+    style["theme-" + n * 10] =
+        `color-mix(
+            in oklab,
+            ${light} ${n * 10}%,
+            ${dark}
+        )`
+})

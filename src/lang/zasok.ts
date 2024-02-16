@@ -32,5 +32,9 @@ export const zasok: Lang = {
             ],
             freq: Number(freq),
         })
-    )
+    ),
+    color: {
+        light: "#FDDE59",
+        dark: "#2C2C2C",
+    }
 }
