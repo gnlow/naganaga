@@ -106,7 +106,7 @@ const match =
 }
 
 export const search = (str: string) => {
-    return filterLimited(20, match(str))(dict)
+    return filterLimited(50, match(str))(dict)
     .sort(
         sortList(str)
     )
