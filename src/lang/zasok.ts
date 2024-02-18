@@ -19,9 +19,11 @@ const data = parse(await fetch("https://gsheet.deno.dev/1QSqIbmShJiUiJWNB0x8dQzG
 
 export const zasok: Lang = {
     words: data.map(
-        ([index, word, freq, n, adj, v, adv, prep, remark]) => ({
+        ([index, latin, freq, n, adj, v, adv, prep, remark]) => ({
             index: Number(index),
-            word,
+            word: {
+                latin,
+            },
             meaning: [
                 n,
                 adj,

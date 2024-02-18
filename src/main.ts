@@ -21,7 +21,12 @@ const div = box("")
 const word = ({ index, word, meaning }: Word) =>
     v("p(0.5rem/1rem)", [
         h("hbox(bottom) font(24)", [
-            div("500", [word]),
+            v("", [
+                ...Object.entries(word).map(
+                    ([_script, val]) =>
+                        div("500", [val])
+                ),
+            ]),
             div(`
                 font(12)
                 p(4)

@@ -1,7 +1,6 @@
 export interface Word {
     index: number
-    /** Latin */
-    word: string
+    word: Record<string, string>
     meaning: string[]
     freq: number
 }

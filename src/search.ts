@@ -62,10 +62,10 @@ const descend =
 const sortList = 
 (str: string) =>
     sort<Word>(
-        descend(x => startsWith(x.word, str)),
+        descend(x => startsWith(x.word.latin, str)),
         descend(x => !!x.meaning.find(y => startsWith(y, str))),
         descend(x => x.freq),
-        ascend(x => x.word.length),
+        ascend(x => x.word.latin.length),
         ascend(x => x.index),
     )
 
@@ -96,7 +96,7 @@ const match =
     const where = normalize(
         isHangul(str)
             ? meaning.join("\n")
-            : word
+            : word.latin
     )
     const what = normalize(str)
     return where.includes(what)
