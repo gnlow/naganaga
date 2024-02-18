@@ -49,6 +49,7 @@ const zemin = (str: string) =>
         .replaceAll(/ie$/g, "k")
         .replaceAll("ø", "oe")
         .replaceAll(/^ex/g, "x")
+        .replaceAll("e\u{0301}", "\u{e07f}")
         .replaceAll(/[a-z]/g, latinCharToZemin)
         .replaceAll(
             /.\u{0301}/gv,
