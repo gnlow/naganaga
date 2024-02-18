@@ -1,25 +1,11 @@
 import { Lang } from "../Lang.ts"
 import { parse } from "../deps/csv.ts"
 
-type Row = [
-    index: string,
-    word: string,
-    freq: string,
-    n: string,
-    adj: string,
-    v: string,
-    adv: string,
-    prep: string,
-    remark: string,
-    dfl: string,
-    dfw: string,
-]
-
-const data = parse(await fetch("https://gsheet.deno.dev/1QSqIbmShJiUiJWNB0x8dQzGbb6W1dqEz_LBlP363e_E").then(x => x.text())) as Row[]
+const data = parse(await fetch("https://gsheet.deno.dev/1QSqIbmShJiUiJWNB0x8dQzGbb6W1dqEz_LBlP363e_E").then(x => x.text()))
 
 export const zasok: Lang = {
     words: data.map(
-        ([index, latin, freq, n, adj, v, adv, prep, remark]) => ({
+        ([index, latin, freq, n, adj, v, adv, prep, remark, _dfl, _dfw]) => ({
             index: Number(index),
             word: {
                 latin,
