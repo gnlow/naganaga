@@ -1,5 +1,6 @@
 import { Word } from "./Lang.ts"
 import { zasok } from "./lang/index.ts"
+import { charCodeDiff } from "./util/char.ts"
 
 const dict = zasok.words.sort((a, b) => b.freq - a.freq)
 
@@ -8,10 +9,6 @@ const wansung = {
     jungsung: "ㅏ,ㅐ,ㅑ,ㅒ,ㅓ,ㅔ,ㅕ,ㅖ,ㅗ,ㅗㅏ,ㅗㅐ,ㅗㅣ,ㅛ,ㅜ,ㅜㅓ,ㅜㅔ,ㅜㅣ,ㅡ,ㅡㅣ,ㅣ".split(","),
     jongsung: "ㄱ,ㄲ,ㄱㅅ,ㄴ,ㄴㅈ,ㄴㅎ,ㄷ,ㄹ,ㄹㄱ,ㄹㅁ,ㄹㅂ,ㄹㅅ,ㄹㅌ,ㄹㅍ,ㄹㅎ,ㅁ,ㅂ,ㅂㅅ,ㅅ,ㅆ,ㅇ,ㅈ,ㅊ,ㅋ,ㅌ,ㅍ,ㅎ".split(",")
 }
-
-const charCodeDiff =
-(a: string, b: string) =>
-    a.charCodeAt(0) - b.charCodeAt(0)
 
 export const normalize =
 (str: string) => str
