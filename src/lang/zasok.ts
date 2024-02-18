@@ -44,8 +44,43 @@ const zemin = (str: string) =>
     str
         .normalize("NFD")
         .toLowerCase()
+        .replaceAll(/que$/g, "k")
         .replaceAll("qu", "k")
+        .replaceAll(/ie$/g, "k")
+        .replaceAll("ø", "oe")
+        .replaceAll(/^ex/g, "x")
         .replaceAll(/[a-z]/g, latinCharToZemin)
+        .replaceAll(
+            /.\u{0301}/gv,
+                // Combining acute accent (양음)
+            moveCharCode(
+                charCodeDiff(
+                    "\u{e098}", // Zemin Small letter A with triple dot above
+                    "\u{e078}", // Zemin Small letter A
+                )
+            ),
+        )
+        .replaceAll(
+            /.\u{0300}/gv,
+                // Combining grave accent (억음)
+            moveCharCode(
+                charCodeDiff(
+                    "\u{e080}", // Zemin Small letter A with dot above
+                    "\u{e078}", // Zemin Small letter A
+                )
+            ),
+        )
+        .replaceAll(
+            /.[\u{0302}\u{0304}]/gv,
+                // Combining circumflex accent (곡절)
+                // Combining macron (장음)
+            moveCharCode(
+                charCodeDiff(
+                    "\u{e090}", // Zemin Small letter A with elongation
+                    "\u{e078}", // Zemin Small letter A
+                )
+            ),
+        )
         .replaceAll(
             /.\u{0308}/gv, // Double dot above
             moveCharCode(
