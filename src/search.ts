@@ -62,8 +62,8 @@ const sortList =
     sort<Word>(
         descend(x => startsWith(x.word.latin, str)),
         descend(x => !!x.meaning.find(y => startsWith(y, str))),
-        descend(x => x.freq),
         ascend(x => x.word.latin.length),
+        descend(x => x.freq),
         ascend(x => x.index),
     )
 
