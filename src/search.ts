@@ -13,6 +13,7 @@ const wansung = {
 export const normalize =
 (str: string) => str
     .normalize("NFD")
+    .replace("ø", "o")
     .replace(/\p{Diacritic}/gu, "")
     .toLowerCase()
 
