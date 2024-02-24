@@ -1,8 +1,5 @@
 import { Word } from "./Lang.ts"
-import { zasok } from "./lang/index.ts"
 import { charCodeDiff } from "./util/char.ts"
-
-const dict = zasok.words.sort((a, b) => b.freq - a.freq)
 
 const wansung = {
     chosung: "ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ",
@@ -100,7 +97,9 @@ const match =
     return where.includes(what)
 }
 
-export const search = (str: string) => {
+export const search =
+(dict: Word[]) =>
+(str: string) => {
     return filterLimited(50, match(str))(dict)
     .sort(
         sortList(str)

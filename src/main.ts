@@ -54,7 +54,7 @@ const update = () => {
             ? cacheResult
             : (
                 cacheStr = str,
-                cacheResult = search(str)
+                cacheResult = search(zasok.words)(str)
             )
 
     console.log(result)
