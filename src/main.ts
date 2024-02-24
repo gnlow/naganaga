@@ -1,22 +1,11 @@
 import { pad, onChange } from "./pad.ts"
 import { search, normalize } from "./search.ts"
 import { getSelectedWord } from "./getSelection.ts"
-import { el } from "./el.ts"
+import { el, v, h, div } from "./el.ts"
 import { Word } from "./Lang.ts"
 import { style } from "./style.ts"
 
 const $search = document.querySelector("#search")!
-
-const box = (cl: string) => (
-    class_: string,
-    children: (string | HTMLElement)[],
-) => el("div", {
-    class: cl + class_,
-    children,
-})
-const v = box("vbox ")
-const h = box("hbox ")
-const div = box("")
 
 const word = ({ index, word, meaning }: Word) =>
     v("p(0.5rem/1rem)", [

@@ -10,3 +10,14 @@ export const el = (name: string, { children, ...attr }: Attr = {}) => {
 
     return elem
 }
+
+export const box = (cl: string) => (
+    class_: string,
+    children: (string | HTMLElement)[],
+) => el("div", {
+    class: cl + class_,
+    children,
+})
+export const v = box("vbox ")
+export const h = box("hbox ")
+export const div = box("")
