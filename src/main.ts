@@ -40,6 +40,7 @@ let lang: Lang
 
 const changeLang = async (langName: string) => {
     lang = (await import(`./lang/${langName}.ts`))[langName]
+    console.log(lang)
 
     const light = style.light = lang.color?.light || "#eef"
     const dark = style.dark =  lang.color?.dark || "#222"
