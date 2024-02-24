@@ -6,11 +6,6 @@ import { style } from "./style.ts"
 import type { Lang, Word } from "./Lang.ts"
 import { word } from "./compo/word.ts"
 
-const langName = location.pathname.slice(1) || "zasok"
-
-const lang: Lang = (await import(`./lang/${langName}.ts`))[langName]
-console.log(lang)
-
 const $search = document.querySelector("#search")!
 
 let cacheStr = ""
@@ -40,18 +35,32 @@ const update = () => {
 }
 
 document.querySelector("#pad")!.append(pad)
+
+let lang: Lang
+
+const changeLang = async (langName: string) => {
+    lang = (await import(`./lang/${langName}.ts`))[langName]
+
+    const light = style.light = lang.color?.light || "#eef"
+    const dark = style.dark =  lang.color?.dark || "#222"
+    
+    Array(11).fill(0).forEach((_, n) => {
+        style["theme-" + n * 10] =
+            `color-mix(
+                in oklab,
+                ${light} ${n * 10}%,
+                ${dark}
+            )`
+    })
+    cacheStr = ""
+    update()
+}
+
+const hashChange = () => changeLang(location.hash.slice(1) || "zasok")
+
+addEventListener("hashchange", hashChange)
+hashChange()
+
 onChange(update)
 
 document.addEventListener("selectionchange", update)
-
-const light = style.light = lang.color?.light || "#eef"
-const dark = style.dark =  lang.color?.dark || "#222"
-
-Array(11).fill(0).forEach((_, n) => {
-    style["theme-" + n * 10] =
-        `color-mix(
-            in oklab,
-            ${light} ${n * 10}%,
-            ${dark}
-        )`
-})
