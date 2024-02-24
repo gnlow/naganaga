@@ -22,6 +22,8 @@ app.get("/src/:filename{.*\\.ts$}", async c => {
         ))
 })
 
+app.get("/:lang", serveStatic({ path: "./index.html" }))
+
 app.get("*", serveStatic())
 
 Deno.serve(app.fetch)

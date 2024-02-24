@@ -6,7 +6,9 @@ import { style } from "./style.ts"
 import type { Lang, Word } from "./Lang.ts"
 import { word } from "./compo/word.ts"
 
-const lang: Lang = (await import(`./lang/${"loca"}.ts`))["loca"]
+const langName = location.pathname.slice(1)
+
+const lang: Lang = (await import(`./lang/${langName}.ts`))[langName]
 console.log(lang)
 
 const $search = document.querySelector("#search")!
