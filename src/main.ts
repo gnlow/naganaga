@@ -6,7 +6,7 @@ import { style } from "./style.ts"
 import type { Lang, Word } from "./Lang.ts"
 import { word } from "./compo/word.ts"
 
-const langName = location.pathname.slice(1)
+const langName = location.pathname.slice(1) || "zasok"
 
 const lang: Lang = (await import(`./lang/${langName}.ts`))[langName]
 console.log(lang)
