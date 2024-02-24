@@ -5,7 +5,7 @@ const data = parse(await fetch("https://gsheet.deno.dev/1KuRQFwPnn4_jBlTkUHVeWD-
 
 export const loca: Lang = {
     words: data.map(
-        ([index, , n, adj, v, etc, _origin]) => ({
+        ([index, latin, n, adj, v, etc, _origin]) => ({
             index: Number(index),
             word: {
                 latin,
