@@ -1,4 +1,4 @@
-import { pad } from "./pad.ts"
+import { pad } from "./compo/pad.ts"
 
 const getPos = (target: Node | null): number => {
     if (!target) return 0

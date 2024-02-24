@@ -1,4 +1,4 @@
-import { el } from "./el.ts"
+import { el } from "../el.ts"
 
 export const pad = el("div", {
     class: `

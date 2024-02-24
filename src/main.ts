@@ -1,33 +1,12 @@
-import { pad, onChange } from "./pad.ts"
+import { pad, onChange } from "./compo/pad.ts"
 import { search, normalize } from "./search.ts"
 import { getSelectedWord } from "./getSelection.ts"
-import { el, v, h, div } from "./el.ts"
-import { Word } from "./Lang.ts"
 import { style } from "./style.ts"
 
-const $search = document.querySelector("#search")!
+import type { Word } from "./Lang.ts"
+import { word } from "./compo/word.ts"
 
-const word = ({ index, word, meaning }: Word) =>
-    v("p(0.5rem/1rem)", [
-        h("hbox(bottom) font(24)", [
-            v("", [
-                ...Object.entries(word).map(
-                    ([_script, val]) =>
-                        div("500", [val])
-                ),
-            ]),
-            div(`
-                font(12)
-                p(4)
-            `, [String(index)]),
-        ]),
-        h("font(16)", [
-            div("", meaning.filter(x => !!x).map(mean => [
-                mean,
-                el("br"),
-            ]).flat()),
-        ])
-    ])
+const $search = document.querySelector("#search")!
 
 let cacheStr = ""
 let cacheResult: Word[] = []
