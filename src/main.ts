@@ -3,8 +3,11 @@ import { search, normalize } from "./search.ts"
 import { getSelectedWord } from "./getSelection.ts"
 import { style } from "./style.ts"
 
-import type { Word } from "./Lang.ts"
+import type { Lang, Word } from "./Lang.ts"
 import { word } from "./compo/word.ts"
+
+const lang: Lang = (await import(`./lang/${"loca"}.ts`))["loca"]
+console.log(lang)
 
 const $search = document.querySelector("#search")!
 
@@ -22,7 +25,7 @@ const update = () => {
             ? cacheResult
             : (
                 cacheStr = str,
-                cacheResult = search(zasok.words)(str)
+                cacheResult = search(lang.words)(str)
             )
 
     console.log(result)
@@ -39,10 +42,8 @@ onChange(update)
 
 document.addEventListener("selectionchange", update)
 
-import { zasok } from "./lang/zasok.ts"
-
-const light = style.light = zasok.color!.light
-const dark = style.dark =  zasok.color!.dark
+const light = style.light = lang.color?.light || "#eef"
+const dark = style.dark =  lang.color?.dark || "#222"
 
 Array(11).fill(0).forEach((_, n) => {
     style["theme-" + n * 10] =
